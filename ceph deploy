@@ -1,3 +1,6 @@
+https://www.jianshu.com/p/396bf436275a
+
+
 # on each nodes
  systemctl stop firewalld.service
  systemctl disable firewalld.service
@@ -24,3 +27,21 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 sed -i '/aliyuncs/d' /etc/yum.repos.d/CentOS-Base.repo
 sed -i '/aliyuncs/d' /etc/yum.repos.d/epel.repo
+
+# 配置ceph源
+cat > /etc/yum.repos.d/ceph.repo << EOF
+[ceph]
+name=ceph
+baseurl=https://mirrors.aliyun.com/ceph/rpm-nautilus/el7/x86_64/
+gpgcheck=0
+[ceph-noarch]
+name=cephnoarch
+baseurl=https://mirrors.aliyun.com/ceph/rpm-nautilus/el7/noarch/
+gpgcheck=0
+EOF
+
+yum makecache
+
+
+## 安装ntp
+yum install ntp -y
