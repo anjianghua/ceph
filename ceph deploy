@@ -1,0 +1,18 @@
+# on each node
+ systemctl stop firewalld.service
+ systemctl disable firewalld.service
+ setenforce 0
+ sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+ echo -e  "10.78.0.51 node1\n10.78.0.52 node2\n10.78.0.53 node3" >> /etc/hosts
+ for i in {1..3}; do ping -c 2 node$i ; done
+ 
+ # 免密登录（on node1）
+ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+ ssh-copy-id root@node2
+ ssh-copy-id root@node3
+ 
+ # 测试免密登录（on node1）
+ ssh root@node2
+ ssh root@node3
+ 
+ 
