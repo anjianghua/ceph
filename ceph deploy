@@ -45,3 +45,5 @@ yum makecache
 
 ## 安装ntp
 yum install ntp -y
+
+# 20221019 commit
